@@ -1,0 +1,206 @@
+# De novo assembly mini project
+# The home folder is ~/denovo, original files are in ~/denovo/original_files,
+# intermdediate files are in ~/denovo/intermediate,
+# results are in ~/denovo/results
+
+
+# Start with initial 6 fastqc files (1 paired-end sequencing, 2 after mate pair sequencing)
+# Quality control and extracting the number of raw reads with fastqc
+fastqc original_files/SRR292678sub_S1_L001_R1_001.fastq -o intermediate/
+fastqc original_files/SRR292678sub_S1_L001_R2_001.fastq -o intermediate/
+fastqc original_files/SRR292862_S2_L001_R1_001.fastq -o intermediate/
+fastqc original_files/SRR292862_S2_L001_R2_001.fastq -o intermediate/
+fastqc original_files/SRR292770_S1_L001_R1_001.fastq -o intermediate/
+fastqc original_files/SRR292770_S1_L001_R2_001.fastq -o intermediate/
+
+# the ouput is the same for all this commands
+# as an example
+
+Started analysis of SRR292770_S1_L001_R2_001.fastq
+Approx 5% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 10% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 15% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 20% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 25% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 30% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 35% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 40% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 45% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 50% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 55% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 60% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 65% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 70% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 75% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 80% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 85% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 90% complete for SRR292770_S1_L001_R2_001.fastq
+Approx 95% complete for SRR292770_S1_L001_R2_001.fastq
+Analysis complete for SRR292770_S1_L001_R2_001.fastq
+
+#Assembling genome with SPades using single paired-end reads library
+# spades.py --careful -o ~/denovo/intermediate/Spades_out_single_lib -1 original_files/SRR292678sub_S1_L001_R1_001.fastq -2 original_files/SRR292678sub_S1_L001_R2_001.fastq
+
+# output is too big. the whole operation is fairly time-consuming, not sure that my laptop can deal with three libarry options later.
+# Making QUAST report based on contigs.fasta and scaffolds.fasta
+
+python3 ~/Documents/quast-5.0.0/quast.py intermediate/Spades_out_single_lib/contigs.fasta 
+/home/arthur/Documents/quast-5.0.0/quast.py intermediate/Spades_out_single_lib/contigs.fasta
+
+ersion: 5.0.0, de6973bb
+
+System information:
+  OS: Linux-4.13.0-45-generic-x86_64-with-LinuxMint-18.2-sonya (linux_64)
+  Python version: 3.5.2
+  CPUs number: 4
+
+Started: 2018-10-09 15:19:51
+
+Logging to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/quast.log
+NOTICE: Maximum number of threads is set to 1 (use --threads option to set it manually)
+
+CWD: /home/arthur/denovo
+Main parameters: 
+  MODE: default, threads: 1, minimum contig length: 500, minimum alignment length: 65, \
+  ambiguity: one, threshold for extensive misassembly size: 1000
+
+Contigs:
+  Pre-processing...
+  intermediate/Spades_out_single_lib/contigs.fasta ==> contigs
+
+2018-10-09 15:19:55
+Running Basic statistics processor...
+  Contig files: 
+    contigs
+  Calculating N50 and L50...
+    contigs, N50 = 95748, L50 = 15, Total length = 5251683, GC % = 50.54, # N's per 100 kbp =  0.00
+  Drawing Nx plot...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/Nx_plot.pdf
+  Drawing cumulative plot...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/cumulative_plot.pdf
+  Drawing GC content plot...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/GC_content_plot.pdf
+  Drawing contigs GC content plot...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/contigs_GC_content_plot.pdf
+  Drawing Coverage histogram (bin size: 2x)...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/coverage_histogram.pdf
+  Drawing contigs coverage histogram (bin size: 2x)...
+    saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/basic_stats/contigs_coverage_histogram.pdf
+Done.
+
+NOTICE: Genes are not predicted by default. Use --gene-finding or --glimmer option to enable it.
+
+2018-10-09 15:19:59
+Creating large visual summaries...
+This may take a while: press Ctrl-C to skip this step..
+  1 of 2: Creating Icarus viewers...
+  2 of 2: Creating PDF with all tables and plots...
+Done
+
+2018-10-09 15:20:01
+RESULTS:
+  Text versions of total report are saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/report.txt, report.tsv, and report.tex
+  Text versions of transposed total report are saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/transposed_report.txt, transposed_report.tsv, and transposed_report.tex
+  HTML version (interactive tables and plots) is saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/report.html
+  PDF version (tables and plots) is saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/report.pdf
+  Icarus (contig browser) is saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/icarus.html
+  Log is saved to /home/arthur/denovo/quast_results/results_2018_10_09_15_19_51/quast.log
+
+Finished: 2018-10-09 15:20:01
+Elapsed time: 0:00:09.222646
+NOTICEs: 2; WARNINGs: 0; non-fatal ERRORs: 0
+
+Thank you for using QUAST!
+
+# Assembling with corrected reads
+
+spades.py --careful -o ~/denovo/intermediate/Spades_out_single_lib_cor -1 intermediate/Spades_out_single_lib/corrected/SRR292678sub_S1_L001_R1_001.00.0_0.cor.fastq -2 intermediate/Spades_out_single_lib/corrected/SRR292678sub_S1_L001_R2_001.00.0_0.cor.fastq
+
+# QC with QUAST
+
+python3 ~/Documents/quast-5.0.0/quast.py intermediate/Spades_out_single_lib_cor/scaffolds.fasta
+python3 ~/Documents/quast-5.0.0/quast.py intermediate/Spades_out_single_lib_cor/contigs.fasta 
+
+# Expected to see more differences. Plots are quite the same, Num of contigs and Total length is a tud different
+
+# Attempt to assemble the genome based on three library failed as I expected. The program threw the error about not enough RAM(4 threads, 7gb limit) after 25 minutes of running, 
+
+spades.py --careful -o ~/denovo/intermediate/Spades_out_2 -t 4 --pe1-1 original_files/SRR292678sub_S1_L001_R1_001.fastq --pe1-2 original_files/SRR292678sub_S1_L001_R2_001.fastq --mp1-1 original_files/SRR292770_S1_L001_R1_001.fastq --mp1-2 original_files/SRR292770_S1_L001_R2_001.fastq --mp2-1 original_files/SRR292862_S2_L001_R1_001.fastq --mp2-2 original_files/SRR292862_S2_L001_R2_001.fastq
+
+<jemalloc>: Error in malloc(): out of memory. Requested: 24, active: 5247074304
+
+# Tried different setting , the outcome is the same.So I downloaded the assembled genome using the link provided
+# Gene prediction and annotation with Prokka
+
+prokka denovo/original_files/three_libs_spades_out/scaffolds.fasta --outdir denovo/results/res_prokka
+
+# Finding a closest relative of E.coli X with barrnap
+
+barrnap --incseq denovo/original_files/three_libs_spades_out/scaffolds.fasta > rrna.txt
+
+# Looking for 16S_RNA
+
+cat rrna.txt | grep '16S_rRNA'
+
+NODE_1_length_2815616_cov_74.3819_ID_564387	barrnap:0.6	rRNA	326359	327896	0	-	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_1_length_2815616_cov_74.3819_ID_564387	barrnap:0.6	rRNA	595966	597503	0	-	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_1_length_2815616_cov_74.3819_ID_564387	barrnap:0.6	rRNA	2504403	2505940	0	-	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_5_length_236041_cov_85.7779_ID_563492	barrnap:0.6	rRNA	43835	45372	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_5_length_236041_cov_85.7779_ID_563492	barrnap:0.6	rRNA	85462	86999	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+NODE_6_length_209194_cov_80.6603_ID_563563	barrnap:0.6	rRNA	111955	113492	0	+	.	Name=16S_rRNA;product=16S ribosomal RNA
+ 
+# Getting some sequence for BLAST. Used the script from https://github.com/raymondkiu/16S_extraction_Barrnap/blob/master/README.md
+# For BLAST used NODE_1_length_2815616_cov_74.3819_ID_564387:326358-327896
+AAGGAGGTGATCCAACCGCAGGTTCCCCTACGGTTACCTTGTTACGACTTCACCCCAGTC
+ATGAATCACAAAGTGGTAAGCGCCCTCCCGAAGGTTAAGCTACCTACTTCTTTTGCAACC
+CACTCCCATGGTGTGACGGGCGGTGTGTACAAGGCCCGGGAACGTATTCACCGTGGCATT
+CTGATCCACGATTACTAGCGATTCCGACTTCATGGAGTCGAGTTGCAGACTCCAATCCGG
+ACTACGACGCACTTTATGAGGTCCGCTTGCTCTCGCGAGGTCGCTTCTCTTTGTATGCGC
+CATTGTAGCACGTGTGTAGCCCTGGTCGTAAGGGCCATGATGACTTGACGTCATCCCCAC
+CTTCCTCCAGTTTATCACTGGCAGTCTCCTTTGAGTTCCCGGCCGGACCGCTGGCAACAA
+AGGATAAGGGTTGCGCTCGTTGCGGGACTTAACCCAACATTTCACAACACGAGCTGACGA
+CAGCCATGCAGCACCTGTCTCACGGTTCCCGAAGGCACATTCTCATCTCTGAAAACTTCC
+GTGGATGTCAAGACCAGGTAAGGTTCTTCGCGTTGCATCGAATTAAACCACATGCTCCAC
+CGCTTGTGCGGGCCCCCGTCAATTCATTTGAGTTTTAACCTTGCGGCCGTACTCCCCAGG
+CGGTCGACTTAACGCGTTAGCTCCGGAAGCCACGCCTCAAGGGCACAACCTCCAAGTCGA
+CATCGTTTACGGCGTGGACTACCAGGGTATCTAATCCTGTTTGCTCCCCACGCTTTCGCA
+CCTGAGCGTCAGTCTTCGTCCAGGGGGCCGCCTTCGCCACCGGTATTCCTCCAGATCTCT
+ACGCATTTCACCGCTACACCTGGAATTCTACCCCCCTCTACGAGACTCAAGCTTGCCAGT
+ATCAGATGCAGTTCCCAGGTTGAGCCCGGGGATTTCACATCTGACTTAACAAACCGCCTG
+CGTGCGCTTTACGCCCAGTAATTCCGATTAACGCTTGCACCCTCCGTATTACCGCGGCTG
+CTGGCACGGAGTTAGCCGGTGCTTCTTCTGCGGGTAACGTCAATGAGCAAAGGTATTAAC
+TTTACTCCCTTCCTCCCCGCTGAAAGTACTTTACAACCCGAAGGCCTTCTTCATACACGC
+GGCATGGCTGCATCAGGCTTGCGCCCATTGTGCAATATTCCCCACTGCTGCCTCCCGTAG
+GAGTCTGGACCGTGTCTCAGTTCCAGTGTGGCTGGTCATCCTCTCAGACCAGCTAGGGAT
+CGTCGCCTTGGTGAGCCGTTACCCCACCAACAAGCTAATCCCATCTGGGCACATCCGATG
+GCAAGAGGCCCGAAGGTCCCCCTCTTTGGTCTTGCGACGTTATGCGGTATTAGCTACCGT
+TTCCAGTAGTTATCCCCCTCCATCAGGCAGTTTCCCAGACATTACTCACCCGTCCGCCAC
+TCGTCAGCGAAACAGCAAGCTGTTTCCTGTTACCGTTCGACTTGCATGTGTTAGGCCTGC
+CGCCAGCGTTCAATCTGAGCCATGATCAAACTCTTCAA
+# the closest relative turned out to be the strain 55989 
+#Going to mauve for alignment and looking for toxins-related genes
+# The shiga toxins-related genes are stxs
+
+#For drug resistance used ResFinder
+# Starting report
+---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
