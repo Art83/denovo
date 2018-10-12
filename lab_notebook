@@ -130,6 +130,11 @@ spades.py --careful -o ~/denovo/intermediate/Spades_out_2 -t 4 --pe1-1 original_
 <jemalloc>: Error in malloc(): out of memory. Requested: 24, active: 5247074304
 
 # Tried different setting , the outcome is the same.So I downloaded the assembled genome using the link provided
+# QC with QUAST
+
+python3 ~/Documents/quast-5.0.0/quast.py original_files/three_libs_spades_out/scaffolds.fasta
+python3 ~/Documents/quast-5.0.0/quast.py original_files/three_libs_spades_out/contigs.fasta
+
 # Gene prediction and annotation with Prokka
 
 prokka denovo/original_files/three_libs_spades_out/scaffolds.fasta --outdir denovo/results/res_prokka
